@@ -1,0 +1,12 @@
+{
+	"mongoServer": "mongodb://username:password@url_with_port",
+	"klovserver": "http://111.111.111.111",
+	"env": {
+		"test": {
+			"mongoDb": "klov1"
+		},
+		"prod": {
+			"mongoDb": "klov"
+		}
+	}
+}

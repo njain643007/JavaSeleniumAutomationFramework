@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+<listeners>
+		<listener class-name="common.listeners.TestListener"></listener>
+		<listener class-name="common.listeners.TestNGEmailableReport"></listener>
+	</listeners>
+  <test thread-count="5" name="Test">
+    <classes>
+      <class name="tests.Test1"/>
+    </classes>
+  </test> 
+<!--   <test name="Test Name" enabled="true"> -->
+<!-- 		<parameter name="filename" value="TestCases.xlsx"></parameter> -->
+<!-- 		<classes> -->
+<!-- 			<parameter name="sheetname" -->
+<!-- 				value="sheet name"> -->
+<!-- 				<class name="com.api.tests.classpath" /> -->
+<!-- 			</parameter> -->
+<!-- 		</classes> -->
+<!-- 	</test> -->
+  <!-- Test -->
+</suite> <!-- Suite -->

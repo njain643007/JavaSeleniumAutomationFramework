@@ -1,0 +1,66 @@
+pipeline {
+    agent any
+    environment {
+        IP = '111.111.111.111'
+    }
+    stages{
+        stage('Fetch framework source code'){
+            steps{
+                git branch: 'master', credentialsId: 'deployer', url: 'git@bitbucket.org:software/ui-automation-framework.git'
+                sshagent(['deployer']) {
+                   sh """
+                   ssh -o LogLevel=quiet -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no deployer@$IP "mkdir -p /home/deployer/${JOB_NAME}/${BUILD_NUMBER}"
+                   rsync -avz -e "ssh -o StrictHostKeyChecking=no" /var/lib/jenkins/workspace/${JOB_NAME}/ deployer@$IP:/home/deployer/${JOB_NAME}/${BUILD_NUMBER}
+                      """
+                }
+            }
+        }
+        stage('Install Framework'){
+            steps{
+                sshagent(['deployer']) {
+                     sh """
+                     ssh -o LogLevel=quiet -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no deployer@$IP "cd /home/deployer/${JOB_NAME}/${BUILD_NUMBER}/UIAutomationFramework && mvn clean install -Dmaven.test.skip=true -Dbrowser=$browser -Durl=$url -DjobName=${JOB_NAME} -DbuildNumber=${BUILD_NUMBER}"
+                        """
+                }
+            }
+        }
+        stage('Fetch source code'){
+            steps{
+                git branch: 'master', credentialsId: 'deployer', url: 'git@bitbucket.org:software/qa-automation.git'
+				sshagent(['deployer']) {
+                   sh """
+                   ssh -o LogLevel=quiet -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no deployer@$IP "mkdir -p /home/deployer/${JOB_NAME}/${BUILD_NUMBER}"
+                   rsync -avz -e "ssh -o StrictHostKeyChecking=no" /var/lib/jenkins/workspace/${JOB_NAME}/ deployer@$IP:/home/deployer/${JOB_NAME}/${BUILD_NUMBER}/ProjectName
+                     """
+                }
+            }
+        }
+         stage('Execute Test'){
+            steps{
+                sshagent(['deployer']) {
+                     sh """
+                     ssh -o LogLevel=quiet -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no deployer@$IP "cd /home/deployer/${JOB_NAME}/${BUILD_NUMBER}/ProjectName && mvn clean test -Denv=$environment -Dbrowser=$browser -Durl=$url -DtestngXml=$testngXml -Demail=$emailTo -DccEmail=$emailCC -DmailSubject=$mailSubject -DjobName=${JOB_NAME} -DbuildNumber=${BUILD_NUMBER} -DdevUser=${devUser}"
+                        """
+                }
+            }
+        }
+    }
+    post {
+        always {
+       		  sshagent(['deployer']) {
+                     sh """
+                     rsync -avz -e "ssh -o StrictHostKeyChecking=no" deployer@$IP:/home/deployer/${JOB_NAME}/${BUILD_NUMBER}/ProjectName/TestReport /var/lib/jenkins/workspace/${JOB_NAME}/
+                     ssh -o LogLevel=quiet -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no deployer@$IP "rm -rf /home/deployer/${JOB_NAME}/${BUILD_NUMBER}"
+                        """
+                }
+             publishHTML([allowMissing: false, 
+             alwaysLinkToLastBuild: false,
+             keepAll: false, 
+             reportDir: './TestReport/', 
+             reportFiles: '*.html', 
+             reportName: 'Automation Test Report', 
+             reportTitles: 'ExtentReport'])
+             cleanWs()
+        }
+    }
+}

@@ -1,0 +1,28 @@
+2023-01-18 15:40:37 INFO  common.base.BaseTest  - ------Suite Started------: Default suite
+2023-01-18 15:40:37 INFO  common.drivermanager.ChromeDriverManager  - Initialized the chrome driver manager
+2023-01-18 15:40:47 ERROR common.base.BaseTest  - ------Exception:- Could not start a new session. Possible causes are invalid address of the remote server or browser start-up failure.
+Build info: version: '4.1.1', revision: 'e8fcc2cecf'
+System info: host: 'user-TravelMate-P214-53', ip: '127.0.1.1', os.name: 'Linux', os.arch: 'amd64', os.version: '5.15.0-58-generic', java.version: '17.0.4.1'
+Driver info: org.openqa.selenium.remote.RemoteWebDriver
+Command: [null, newSession {capabilities=[Capabilities {browserName: chrome, goog:chromeOptions: {args: [--window-size=1440x990, --no-sandbox, --disable-dev-shm-usage], extensions: [], prefs: {download.default_directory: /home/nikhil/Documents/Auto...}}}], desiredCapabilities=Capabilities {browserName: chrome, goog:chromeOptions: {args: [--window-size=1440x990, --no-sandbox, --disable-dev-shm-usage], extensions: [], prefs: {download.default_directory: /home/nikhil/Documents/Auto...}}}}]
+Capabilities {}
+2023-01-18 15:40:47 INFO  common.base.BaseTest  - ************** Test Case Started : test1**************
+2023-01-18 15:40:47 INFO  common.base.BaseTest  - ------Suite Ended------
+2023-08-24 14:12:19 INFO  common.base.BaseTest  - ------Suite Started------: Default suite
+2023-08-24 14:12:20 INFO  common.drivermanager.ChromeDriverManager  - Initialized the chrome driver manager
+2023-08-24 14:12:21 INFO  common.drivermanager.DriverManager  - Maximize window size
+2023-08-24 14:12:21 INFO  common.drivermanager.DriverManager  - Set Implicit wait for 20 sec
+2023-08-24 14:12:21 INFO  common.base.BaseTest  - jenkins url parameter is null
+2023-08-24 14:12:21 INFO  common.base.BaseTest  - jenkins url parameter is null
+2023-08-24 14:12:24 INFO  common.base.BaseTest  - Open the url - https://google.com/
+2023-08-24 14:12:24 INFO  common.base.BaseTest  - ************** Test Case Started : test1**************
+2023-08-24 14:12:25 INFO  common.base.BaseTest  - ------Suite Ended------
+2023-11-19 12:44:46 INFO  common.base.BaseTest  - ------Suite Started------: Default suite
+2023-11-19 12:44:46 INFO  common.drivermanager.ChromeDriverManager  - Initialized the chrome driver manager
+2023-11-19 12:44:48 INFO  common.drivermanager.DriverManager  - Maximize window size
+2023-11-19 12:44:48 INFO  common.drivermanager.DriverManager  - Set Implicit wait for 20 sec
+2023-11-19 12:44:48 INFO  common.base.BaseTest  - jenkins url parameter is null
+2023-11-19 12:44:48 INFO  common.base.BaseTest  - jenkins url parameter is null
+2023-11-19 12:44:51 INFO  common.base.BaseTest  - Open the url - https://google.com/
+2023-11-19 12:44:51 INFO  common.base.BaseTest  - ************** Test Case Started : test1**************
+2023-11-19 12:44:54 INFO  common.base.BaseTest  - ------Suite Ended------
